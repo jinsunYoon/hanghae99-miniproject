@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Webpage Title -->
+    <title>Water Melon</title>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bulma CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+
+    <!-- Font Awesome CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/2d323a629b.js"></script>
+
+    <link href="{{ url_for('static', filename='mystyle.css') }}" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+    <link rel="icon" href="../static/favicon.ico.png">
+    <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+
+    <script>
+        <!-- 로그아웃 -->
+        function sign_out() {
+            $.removeCookie('mytoken') , {path: '/'}
+            alert('로그아웃이 완료되었습니다!')
+            window.location.href = "/login"
+        }
+        <!-- 리뷰작성 -->
+        function makeReview() {
+            let contents = $('#contents').val();
+
+            $.ajax({
+                type: "POST",
+                url: "/review",
+                data: {contents_give: contents, music_title_give: '{{ music.title }}'},
+                success: function (response) {
+                    alert(response["msg"]);
+                    window.location.reload();
+                }
+            })
+        }
+        <!-- 리뷰삭제 -->
+        function deleteReview(target_id) {
+            $.ajax({
+                type: "POST",
+                url: "/review/delete",
+                data: {target_id_give: target_id},
+                success: function (response) {
+                    alert(response["msg"]);
+                    window.location.reload();
+                }
+            })
+        }
+
+          <!-- 좋아요 증가 -->
+        function likeUp() {
+            $.ajax({
+                type: "POST",
+                url: "/detail/likeUp",
+                data: {title_give: '{{ music.title }}'},
+                success: function (response) {
+                    alert(response["msg"]);
+                    window.location.reload();
+                }
+            })
+        }
+        <!-- 좋아요 감소 -->
+        function likeDown() {
+            $.ajax({
+                type: "POST",
+                url: "/detail/likeDown",
+                data: {title_give: '{{ music.title }}'},
+                success: function (response) {
+                    alert(response["msg"]);
+                    window.location.reload();
+                }
+            })
+        }
+        <!-- 댓들창 토글버튼 -->
+        function showCommentArea() {
+            $("#reviewToggleBox").toggleClass("is-hidden")
+            $("#reviewDown").toggleClass("fa-caret-up")
+            $("#reviewDown").toggleClass("fa-caret-down")
+        }
+    </script>
+</head>
+<body>
+<!-- navbar -->
+<nav>
+    <a class="mainIcon" href="/">
+        <img src="{{ url_for('static', filename='워터멜론icon.png') }}">
+    </a>
+    <div class="indexTitle">Hi, {{ username }} 님!</div>
+    <div id="btns-me" class="level is-mobile" style="margin-top:0rem">
+        <a class="button level-item has-text-centered is-sparta is-outlined logout" aria-label="logout"
+           onclick="sign_out()">LOGOUT<i class="fa fa-sign-out" aria-hidden="true"></i></span>
+        </a>
+    </div>
+</nav>
+
+<!-- 뮤비 -->
+<section class="mainImage">
+    <div class="musicVideo">
+        <p align="middle">
+            <iframe width="560" height="315" src="{{ music.url }}" frameborder="0"
+                    allow="accelerometer; autoplay=0; autohide=1; controls=1; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+        </p>
+    </div>
+</section>
+
+<section class="mainInfo">
+    <!-- 노래제목/가수 -->
+    <div class="detailInfoTitle">
+        <div class="title2">
+            <span class="detailTitle">{{ music.title }}</span>
+            <span class="detailSinger">{{ music.artist }}</span>
+        </div>
+         {% if music.title not in pickedList %}
+            <button  class="titleIcon" onclick="likeUp()"><i class="far fa-heart"></i></button>
+        {% else %}
+             <button  class="titleIcon" onclick="likeDown()"><i class="fas fa-heart"></i></button>
+        {% endif %}
+    </div>
+
+    <!-- 앨범 -->
+    <div class="album">
+        <img src="{{ music.img }}">
+        <span class="albumInfo">
+                        앨범명 : {{ music.album }}<br>
+                        이 노래를 찜한 사람 : {{ music.like }}명
+    </span>
+    </div>
+
+
+
+</section>
+
+
+<!-- 리뷰 -->
+<section class="comment">
+    <div class="commentHeader">
+        <div class="commentTitle">Review</div>
+        <button class="commentUpDownBtn" onclick="showCommentArea()">
+        <i id="reviewDown" class="fas fa-caret-down"></i>
+        </button>
+    </div>
+{# 리뷰작성 #}
+    <div id="reviewToggleBox" class="CommentArea is-hidden">
+        <textarea placeholder="댓글을 작성해주세요" class="commentBox" id="contents" rows="5" cols="78" style="resize: none;"></textarea>
+        <button class="commentBtn" onclick="makeReview()" type="button">작성완료</button>
+    </div>
+
+{# 리뷰목록 #}
+    <div class="commentList" id="reviews-box">
+        {% for review in reviews %}
+            {% if review.username ==  username %}
+                <div class="commentListDetail">
+                    <div class="commentListDetailLeft">
+                        <span class="commentListUser">{{ review.username }}</span>
+                        <span class="commentListContents">{{ review.contents }}</span>
+                    </div>
+                    <button class="commentDelete" onclick="deleteReview('{{ review._id }}')">
+                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </button>
+                </div>
+            {% else %}
+                <div class="commentListUser">{{ review.username }}</div>
+                <div class="commentListContents">{{ review.contents }}</div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+</section>
+
+
+</body>
+</html>

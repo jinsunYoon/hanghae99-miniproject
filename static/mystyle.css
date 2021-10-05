@@ -1,0 +1,316 @@
+* {
+    box-sizing : border-box;
+}
+
+body {
+    margin : 0px;
+    min-height: 100vh;
+    font-family: 'IBM Plex Sans KR', sans-serif;
+}
+
+p {
+    margin  :0;
+}
+
+ul {
+    list-style: none;
+    padding : 0;
+}
+
+/* index */
+.container1 {
+    margin: auto;
+}
+
+/* navbar */
+nav {
+    position: sticky;
+    height: 88px;
+    top: 0px;
+    background-color: white;
+    z-index : 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 3px solid #7ef1a1;
+}
+
+.mainIcon img{
+    width: 100px;
+    display: flex;
+}
+
+.indexTitle{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.logout{
+    font-size: 12px;
+    font-weight: bold;
+    color: grey;
+}
+
+.logout i{
+    margin-left: 5px;
+}
+
+/* 푸터 */
+footer {
+    background-color: #343434;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footerInfo{
+    max-width: 1000px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.footerInfoTitle{
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-bottom: 1px solid white;
+    padding-bottom: 3px;
+}
+
+.footerInfoText{
+    font-size: 1rem;
+    padding-top: 3px;
+}
+
+/* index - 메인배너 */
+.indexMainImage{
+    background-image: url("background-image.jpg");
+    background-size: cover;
+    width: 100%;
+    height: 300px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.indexMainImageTitle1 {
+    color: white;
+    font-size: 1.2rem;
+    text-shadow: 1px 1px 1px black;
+}
+
+.indexMainImageTitle2{
+    color: white;
+    font-size: 3rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px black;
+}
+
+.indexSub{
+    color: #909090;
+    font-size: 1.2rem;
+}
+
+/* index - 카드 리스트 */
+.imageCard{
+    max-width: 1000px;
+    margin: auto;
+    padding-top: 10px;
+}
+
+.itemList {
+    display : flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.card.item {
+    flex-basis : 30%;
+    margin: 20px 0px;
+    transition: all 300ms ease-in;
+}
+
+.card.item:hover {
+    transform: translate(-5px,-5px);
+    box-shadow: 10px 10px 10px grey;
+}
+
+.contentTitle{
+    font-size: 1.2rem;
+    color: black;
+    font-weight: bold;
+}
+
+.contentArtist{
+    color: #909090;
+}
+
+/* detail */
+/* detail - 뮤비 */
+.mainImage {
+    max-width: 1000px;
+    margin: auto;
+}
+
+.musicVideo{
+    margin-top: 40px;
+    margin-bottom: 20px;
+}
+
+/* detail - 가수, 곡명, 찜버튼 */
+.mainInfo {
+    max-width: 565px;
+    margin: auto;
+}
+
+.detailInfoTitle{
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+}
+
+.detailTitle{
+    font-size: 2rem;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.detailArtist{
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #909090;
+}
+
+.titleIcon i {
+    font-size: 30px;
+    padding-top: 10px;
+    color: #e8344e;
+}
+
+.titleIcon i:hover {
+    transform : scale(1.1);
+}
+
+/* detail - 앨범사진, 설명 */
+.album{
+    display: flex;
+    margin-top: 15px;
+    padding-bottom: 20px;
+    align-items: center;
+}
+
+.album img {
+    width: 170px;
+    border-radius: 5px;
+    display: flex;
+    margin-right: 20px;
+    box-shadow: 0px 0px 5px grey;
+}
+
+/* 댓글 */
+.comment{
+    max-width: 565px;
+    margin: auto;
+}
+
+.commentHeader{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid black;
+}
+
+.commentTitle{
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+button,
+button:focus{
+    border: none;
+    cursor: pointer;
+    outline: none;
+    background-color: white;
+}
+
+.commentUpDownBtn{
+    height: 100%;
+    transition: all 300ms ease-in-out;
+    font-size: 20px;
+}
+
+.CommentArea{
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid lightgray;
+}
+
+.commentBox{
+    width: 460px;
+    border: none;
+    font-size: 16px;
+}
+
+textarea:focus {
+    outline: none;
+}
+
+.commentBtn{
+    font-size: 16px;
+    font-weight: normal;
+    color: white;
+    background-color: #4acb78;
+    border-radius: 3px;
+    padding: 5px 10px;
+    transition: 0.3s;
+}
+
+.commentBtn:hover {
+    background-color: #00b259;
+}
+
+.commentList{
+    padding-bottom: 80px;
+    margin-top: 15px;
+    word-break:break-all;
+}
+
+.commentListUser{
+    font-size: 13px;
+    color: grey;
+    margin-top : 10px;
+}
+
+.commentListContents{
+    font-size: 16px;
+
+}
+
+.commentListDetail{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.commentListDetailLeft{
+    display: flex;
+    flex-direction: column;
+}
+
+.commentDelete i{
+    font-size: 16px;
+    color: grey;
+}
+
+

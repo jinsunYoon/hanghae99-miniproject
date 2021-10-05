@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+
+        <!-- Webpage Title -->
+        <title>Water Melon</title>
+
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bulma CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+        <!-- Font Awesome CSS -->
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+
+        <link href="{{ url_for('static', filename='mystyle.css') }}" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+
+        <link rel="icon" href="../static/favicon.ico.png">
+        <!-- JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+        <!-- 로그아웃 -->
+        <script>
+            function sign_out() {
+                $.removeCookie('mytoken') , {path: '/'}
+                alert('로그아웃이 완료되었습니다!')
+                window.location.href = "/login"
+            }
+        </script>
+    </head>
+    <body>
+        <div class="container1">
+
+            <!-- navbar -->
+            <nav>
+                <a class="mainIcon" href="/">
+                    <img src="{{ url_for('static', filename='워터멜론icon.png') }}">
+                </a>
+                <div class="indexTitle">Hi, {{ username }} 님!</div>
+                <div id="btns-me" class="level is-mobile" style="margin-top:0rem">
+                    <a class="button level-item has-text-centered is-sparta is-outlined logout" aria-label="logout"
+                        onclick="sign_out()">LOGOUT<i class="fa fa-sign-out" aria-hidden="true"></i></span>
+                    </a>
+                </div>
+            </nav>
+
+            <!-- 메인배너 -->
+            <div class="indexMainImage">
+                <p class="indexMainImageTitle1">당신의 여름을 식혀줄 음악사이트,</p>
+                <span class="indexMainImageTitle2">WaterMelon</span>
+            </div>
+
+            <!-- 카드 리스트 -->
+            <div class="imageCard">
+                <ul class="itemList">
+                    {% for item in list %}
+                        <div class="card item">
+                            <a href='detail/{{ item.title }}'>
+                                <img src="{{ item.img }}" alt="Placeholder image">
+                            </a>
+                            <div class="card-content">
+                                <p class="contentTitle">{{ item.title }}</p>
+                                <p class="contentArtist">{{ item.artist }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- 푸터 -->
+            <footer>
+                <div class="footerInfo">
+                    <span class="footerInfoTitle">항해99 1주차 미니프로젝트 - 25조</span>
+                    <span class="footerInfoText">노강표 | 이민국 | 오준석 | 윤진선</span>
+                </div>
+            </footer>
+        </div>
+    </body>
+</html>
+
+
